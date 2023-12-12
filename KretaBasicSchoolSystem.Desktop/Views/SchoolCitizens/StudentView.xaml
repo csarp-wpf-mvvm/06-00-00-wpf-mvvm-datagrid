@@ -10,10 +10,54 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
     <Grid>
-        <DataGrid ItemsSource="{Binding Students}"
-           SelectedItem="{Binding SelectedStudent}"
-           Style="{DynamicResource DataGridCrudStyle}"
-           ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Label Style="{DynamicResource Title}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Diák adatok</Label>
+        <Label Grid.Row="1" Grid.Column="0">Vezeték név:</Label>
+        <Label Grid.Row="2" Grid.Column="0">Kereszt név:</Label>
+        <Label Grid.Row="3" Grid.Column="0">Születési év:</Label>
+        <Label Grid.Row="4" Grid.Column="0">Évfolyam:</Label>
+        <Label Grid.Row="5" Grid.Column="0">Osztály:</Label>
+        <Label Grid.Row="6" Grid.Column="0">Tanulmányi szint:</Label>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="2 2 2 2" Padding="0 2" Text="{Binding SelectedStudent.LastName}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="2 2 2 2" Padding="0 2" Text="{Binding SelectedStudent.FirstName}"></TextBox>
+        <DatePicker Grid.Row="3" Grid.Column="1" Margin="2 2 2 2" SelectedDate="{Binding SelectedStudent.BirthsDay}"></DatePicker>
+        <xwpftk:IntegerUpDown Grid.Row="4" Grid.Column="1" Margin="2 2 100 2" Minimum="9" Maximum="14" Value="{Binding SelectedStudent.SchoolYear}"></xwpftk:IntegerUpDown>
+        <StackPanel Grid.Row="5" Grid.Column="1">
+            <RadioButton GroupName="schoolclass" Margin="2 4 2 2">a  osztály</RadioButton>
+            <RadioButton GroupName="schoolclass" Margin="2 4 2 2">b  osztály</RadioButton>
+            <RadioButton GroupName="schoolclass" Margin="2 4 2 2">c  osztály</RadioButton>
+        </StackPanel>
+        <ComboBox Grid.Row="6" Grid.Column="1" Margin="2 2 2 2"
+             ItemsSource="{Binding EducationLevels}"
+             SelectedItem="{Binding SelectedEducationLevel}"
+             SelectedIndex="0">
+        </ComboBox>
+
+        <DataGrid 
+            Grid.Row="7" 
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Students}"
+            SelectedItem="{Binding SelectedStudent}"
+            Style="{DynamicResource DataGridCrudStyle}"
+            ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="100" Header="Vezetéknév" Binding="{Binding LastName}"></DataGridTextColumn>
                 <DataGridTextColumn Width="100" Header="Keresztnév" Binding="{Binding FirstName}"></DataGridTextColumn>
