@@ -5,6 +5,7 @@ using KretaBasicSchoolSystem.Desktop.Service;
 using KretaBasicSchoolSystem.Desktop.ViewModels.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
@@ -21,6 +22,26 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
 
         [ObservableProperty]
         private Student _selectedStudent;
+
+
+        private bool _isBusy=false;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                _isEnable = !_isBusy;
+                OnPropertyChanged(nameof(IsEnable));
+            }
+        }
+
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get => _isEnable;
+        }
+
 
         private string _selectedEducationLevel = string.Empty;
         public string SelectedEducationLevel
@@ -49,32 +70,38 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
         }
 
         [RelayCommand]
-        public void DoSave(Student newStudent)
+        private void DoSave(Student newStudent)
         {
-            Students.Add(newStudent);
-            OnPropertyChanged(nameof(Students));
         }
 
         [RelayCommand]
-        void DoNewStudent()
+        private async Task DoNewStudent()
         {
-            SelectedStudent = new Student();
+            if (_studentService is not null)
+            {
+                IsBusy = true;
+                List<Student> students = await _studentService.SelectAllStudent();
+                Students = new ObservableCollection<Student>(students);
+                IsBusy = false;
+                Thread.Sleep(3000);
+            }
         }
 
         [RelayCommand]
-        public void DoRemove(Student studentToDelete)
+        private async Task DoRemove(Student studentToDelete)
         {
-            Students.Remove(studentToDelete);
-            OnPropertyChanged(nameof(Students));
+
         }
 
         public override async Task InitializeAsync()
         {
             if (_studentService is not null)
             {
+                IsBusy = true;
                 List<Student> students = await _studentService.SelectAllStudent();
                 Students = new ObservableCollection<Student>(students);
-            }                   
+                IsBusy = false;
+            }
         }
     }
 }
