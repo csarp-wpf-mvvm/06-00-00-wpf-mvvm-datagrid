@@ -77,14 +77,6 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
         [RelayCommand]
         private async Task DoNewStudent()
         {
-            if (_studentService is not null)
-            {
-                IsBusy = true;
-                List<Student> students = await _studentService.SelectAllStudent();
-                Students = new ObservableCollection<Student>(students);
-                IsBusy = false;
-                Thread.Sleep(3000);
-            }
         }
 
         [RelayCommand]
@@ -97,10 +89,9 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
         {
             if (_studentService is not null)
             {
-                IsBusy = true;
+                IsBusy = true; Students = new ObservableCollection<Student>();
                 List<Student> students = await _studentService.SelectAllStudent();
                 Students = new ObservableCollection<Student>(students);
-                Thread.Sleep(3000);
                 IsBusy = false;
             }
         }
