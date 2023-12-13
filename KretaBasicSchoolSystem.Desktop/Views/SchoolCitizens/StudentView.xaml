@@ -11,7 +11,8 @@
              d:DesignHeight="800" d:DesignWidth="1200">
     <StackPanel Orientation="Horizontal">
         <xwpftk:BusyIndicator IsBusy="{Binding IsBusy}" BusyContent="Adatok betöltése..." >
-            <Grid>
+            <xwpftk:BusyIndicator.Content>
+             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="300"></ColumnDefinition>
@@ -58,24 +59,24 @@
                          SelectedIndex="0">
                 </ComboBox>
 
-                <DataGrid 
+                    <DataGrid 
                     Grid.Row="8" 
                     Grid.ColumnSpan="2"
                     ItemsSource="{Binding Students}"
                     SelectedItem="{Binding SelectedStudent}"
                     Style="{DynamicResource DataGridCrudStyle}"
                     ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="100" Header="Vezetéknév" Binding="{Binding LastName}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="100" Header="Keresztnév" Binding="{Binding FirstName}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="100" Header="Szüleséi dátum" Binding="{Binding BirthsDay}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="50" Header="Évfolyam" Binding="{Binding SchoolYear}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="50" Header="Osztály" Binding="{Binding SchoolClass}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="100" Header="Tanulmányi szint" Binding="{Binding EducationLevel}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-
-                </DataGrid>
-            </Grid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Vezetéknév" Binding="{Binding LastName}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="100" Header="Keresztnév" Binding="{Binding FirstName}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="100" Header="Szüleséi dátum" Binding="{Binding BirthsDay}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="50" Header="Évfolyam" Binding="{Binding SchoolYear}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="50" Header="Osztály" Binding="{Binding SchoolClass}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="100" Header="Tanulmányi szint" Binding="{Binding EducationLevel}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+        </xwpftk:BusyIndicator.Content>
         </xwpftk:BusyIndicator>
     </StackPanel>
 </UserControl>

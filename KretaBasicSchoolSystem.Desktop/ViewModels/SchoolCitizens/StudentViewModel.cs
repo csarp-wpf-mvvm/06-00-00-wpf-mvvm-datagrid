@@ -30,7 +30,7 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
             get => _isBusy;
             set
             {
-                _isBusy = value;
+                SetProperty(ref _isBusy, value);
                 _isEnable = !_isBusy;
                 OnPropertyChanged(nameof(IsEnable));
             }
@@ -100,6 +100,7 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens
                 IsBusy = true;
                 List<Student> students = await _studentService.SelectAllStudent();
                 Students = new ObservableCollection<Student>(students);
+                Thread.Sleep(3000);
                 IsBusy = false;
             }
         }
